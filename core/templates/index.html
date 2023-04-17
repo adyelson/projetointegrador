@@ -1,0 +1,50 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entrelinhas</title>
+    <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
+</head>
+
+<body>
+   
+
+    <img src="{% static 'images/logo.jpeg'%}"/>
+    
+
+    <h5><a href="/painel">Painel admnistrativo</a></h5>
+    
+    <h2>{{curso}} ({{produtos.count}} itens)</h2>
+    <table>
+        <thead>
+
+        <tr>
+            <th style="text-align: left;">Produto</th>
+            <th>Preço de Venda</th>
+            <th>estoque</th>
+
+        </tr>
+    </thead>
+        <tbody>
+            {% for produto in produtos%}
+            <tr>
+                <td><a href="{% url 'produto' produto.id %}">{{produto.descricao}}</a></td>
+                <td>{{produto.precoVenda}}</td>
+                <td>{{produto.qtdEstoque}}</td>
+            </tr>
+            {% endfor%}
+
+            
+        </tbody>
+    </table>
+
+    <!-- <button onclick="teste();">Clique-Me</button> -->
+
+    <script type="text/javascript" src="{% static 'js/script.js'%}"></script>
+</body>
+
+</html>
