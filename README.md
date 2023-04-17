@@ -1,11 +1,11 @@
 ﻿# projetointegrador
  
-Adyelson Felix Loureiro
-Aline da Silva Graça
-Alyson Felix Loureiro
-Diego Brandão Cantão
-Leandro Pereira Santos
-Wellyngton Marcondes
+Adyelson Felix Loureiro/
+Aline da Silva Graça/
+Alyson Felix Loureiro/
+Diego Brandão Cantão/
+Leandro Pereira Santos/
+Wellyngton Marcondes/
 
 
 
