@@ -1,37 +1,45 @@
 from django.db import models
+from django.db.models import signals
 
-class Produto(models.Model):
-    sequence = models.CharField('Sequence', max_length=200)
-    descricao = models.CharField('Descrição', max_length=200)
-    tipo = models.CharField('Tipo', max_length=100)
-    precoCompra = models.DecimalField('Preço de Compra',decimal_places=2,max_digits=9)
-    precoVenda = models.DecimalField('Preço de Venda',decimal_places=2,max_digits=9)
-    grupo = models.CharField('Grupo', max_length=100)
-    marca = models.CharField('Marca', max_length=100)
-    qtdEstoque = models.IntegerField('Quantidade em Estoque')
+class Produtos(models.Model):   
+    nome = models.CharField('Nome', max_length=200)    
+    precoVenda = models.DecimalField('Preço de Venda',decimal_places=2,max_digits=9)    
+    qtdEstoque = models.IntegerField('Quantidade em Estoque')     
+    dataModificacao = models.DateField('Data modificação', auto_now=True)
+        
+    def __str__ (self):
+        return f'{self.nome}'
+    
+class Vendas(models.Model):
+    dataVenda = models.DateTimeField('Data Venda', auto_now=True)    
+    cpfCliente = models.CharField('CPF cliente', max_length=200)
+
+    def __str__ (self):
+        return f'{self.dataVenda} (CPF: {self.cpfCliente})'
+  
+class ItensVendas(models.Model):
+    venda = models.ForeignKey(Vendas, on_delete=models.CASCADE)
+    produto = models.ForeignKey(Produtos, on_delete=models.CASCADE)
+    quantidade = models.PositiveIntegerField('Quantidade')
+    valorProdutoAplicado = models.DecimalField('Valor Aplicado Unidade',decimal_places=2,max_digits=9)
     valorTotal = models.DecimalField('Valor Total',decimal_places=2,max_digits=9)
-    idGrade = models.IntegerField('Id Grade')
-    codFabrica = models.CharField('Código de Fábrica', max_length=200)
-    ncm = models.CharField('NCM', max_length=200)
-    situacaoFiscal = models.CharField('Situação Fiscal', max_length=200)
-    txRetorno = models.DecimalField('Taxa de Retorno',decimal_places=2,max_digits=9)
-    dataUltimaVenda = models.DateField('Data Última Venda')
-    cest = models.CharField('CEST', max_length=200)
-    cstcsosn = models.CharField('CTS_CSOSN', max_length=200)
-    codBarras = models.CharField('Código de Barras', max_length=200)
-    localizacao = models.CharField('Localização', max_length=200)
-    valorCusto = models.DecimalField('Valor de Custo',decimal_places=2,max_digits=9)
-    dataUltimaCompra = models.DateField('Data Última Compra')
-    
-
 
     def __str__ (self):
-        return f'{self.descricao} ({self.qtdEstoque})'
+        return f'{self.produto} ({self.quantidade})'
     
-class Cliente(models.Model):
-    nome = models.CharField('Nome', max_length=100)
-    sobrenome = models.CharField('Sobrenome', max_length=100)
-    email = models.EmailField('E-mail', max_length=100)
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        self.produto.qtdEstoque -= self.quantidade
+        self.produto.save()
 
-    def __str__ (self):
-        return self.email
+    def delete(self, *args, **kwargs):
+        self.produto.qtdEstoque += self.quantidade
+        self.produto.save()
+        super().delete(*args, **kwargs)
+    
+def atualizar_valor_produto_aplicado(sender, instance, **kwargs):
+    instance.valorProdutoAplicado = instance.produto.precoVenda
+    instance.valorTotal = instance.produto.precoVenda*instance.quantidade
+
+# Registrar o sinal para o modelo ItensVendas antes de salvar
+signals.pre_save.connect(atualizar_valor_produto_aplicado, sender=ItensVendas)

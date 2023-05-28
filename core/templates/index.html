@@ -1,50 +1,28 @@
+{% extends 'modelo.html' %}
 {%load static%}
-<!DOCTYPE html>
-<html lang="pt-br">
+{% block titulo %}
+<title>Início</title>
+{% endblock %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Entrelinhas</title>
-    <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
-</head>
+{% block conteudo %}
+<div class="container min-vh-100 d-flex align-items-start ">
+    <div class="container 0 bg-light d-flex flex-column justify-content-center align-items-center border border-light rounded w-100 p-4 mt-5"
+        style="max-width: 350px" ;>
 
-<body>
-   
+        Bem vindo! <strong> {{ request.user }}</strong> 
+        Último acesso: <strong>{{request.user.last_login}}</strong>
+        <a class="container mt-4 mb-2" href="/efetuar_venda">
+            <input class="container" type="button" value="Registrar venda" />
+        </a>
+        <a class="container mt-4 mb-2" href="/cadastrar_produto">
+            <input class="container" type="button" value="Adicionar produto" />
+        </a>
+        <a class="container mt-4 mb-2" href="/painel">
+            <input class="container" type="button" value="Painel admnistrativo" />
+        </a>
 
-    <img src="{% static 'images/logo.jpeg'%}"/>
-    
 
-    <h5><a href="/painel">Painel admnistrativo</a></h5>
-    
-    <h2>{{curso}} ({{produtos.count}} itens)</h2>
-    <table>
-        <thead>
+    </div>
 
-        <tr>
-            <th style="text-align: left;">Produto</th>
-            <th>Preço de Venda</th>
-            <th>estoque</th>
-
-        </tr>
-    </thead>
-        <tbody>
-            {% for produto in produtos%}
-            <tr>
-                <td><a href="{% url 'produto' produto.id %}">{{produto.descricao}}</a></td>
-                <td>{{produto.precoVenda}}</td>
-                <td>{{produto.qtdEstoque}}</td>
-            </tr>
-            {% endfor%}
-
-            
-        </tbody>
-    </table>
-
-    <!-- <button onclick="teste();">Clique-Me</button> -->
-
-    <script type="text/javascript" src="{% static 'js/script.js'%}"></script>
-</body>
-
-</html>
+</div>
+{% endblock %}

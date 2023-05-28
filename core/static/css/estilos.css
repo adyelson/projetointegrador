@@ -10,11 +10,27 @@ body{
 
 a{
     text-decoration: underline;
-    color: #ffffff;
+    color: #ffffff !important;
+    
 
 }
+a:hover{
+    color: rgb(0, 0, 0) !important;
+}
 
-img{
-    width: 150px;
+.imagem-nav{
+    
+    width: 100px;
     border-radius: 200px;
+}
+
+.imagem-logo{
+    
+    width: 180px;
+    border-radius: 200px;
+   
+}
+
+thead{
+    border: solid 3px #929292 !important
 }

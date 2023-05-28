@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 
@@ -24,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-^d1g11f(z#-6&(j!fn89#io&$#ap8#60x8vhrflp%4so%dypm-'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['projetointegrador-production.up.railway.app', '127.0.0.1']
 CSRF_TRUSTED_ORIGINS = ['https://projetointegrador-production.up.railway.app','https://127.0.0.1']
@@ -39,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'core',
+    'bootstrap4',
 ]
 
 MIDDLEWARE = [
@@ -108,7 +110,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'pt-br'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Sao_Paulo'
 
 USE_I18N = True
 
@@ -118,8 +120,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/' # dev
-STATIC_ROOT = BASE_DIR / 'staticfiles' # prod
+# STATIC_URL = 'static/' # dev
+STATIC_URL = '/static/' # dev
+# STATIC_ROOT = BASE_DIR / 'staticfiles' # prod
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -127,4 +131,7 @@ STATIC_ROOT = BASE_DIR / 'staticfiles' # prod
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-LOGOUT_REDIRECT_URL = 'index'
+LOGOUT_REDIRECT_URL = '/'
+
+# Redirect to home URL after login (Default redirects to /accounts/profile/)
+LOGIN_REDIRECT_URL = 'index'

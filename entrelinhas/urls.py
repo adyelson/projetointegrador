@@ -21,7 +21,6 @@ from core import views
 
 urlpatterns = [
     path('painel/', admin.site.urls),
-    path('painel', admin.site.urls),
     path('', include('core.urls')),
     
 ]

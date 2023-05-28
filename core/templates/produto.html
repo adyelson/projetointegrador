@@ -1,33 +1,24 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Produto</title>
-</head>
-<body>
+{% extends 'modelo.html' %}
+
+{% block conteudo %}
+<div class="container d-flex flex-column align-items-center justify-content-center p-3">
+    EDITAR PRODUTO
     <table>
-        <thead>
-
-        <tr>
-            <th>Produto</th>
-            <th>Preço</th>
-            <th>estoque</th>
-
-        </tr>
-    </thead>
-        <tbody>
-            
+        <thead>                
             <tr>
-                <td><a href="{% url 'index' %}">{{produto.descricao}}</a></td>
+                <th>Produto</th>
+                <th>Preço</th>
+                <th>estoque</th>               
+            </tr>
+        </thead>
+        <tbody>                
+            <tr>
+                <td><a href="{% url 'index' %}">{{produto.nome}}</a></td>
                 <td>{{produto.precoVenda}}</td>
                 <td>{{produto.qtdEstoque}}</td>
-            </tr>
-           
-
-            
+            </tr>            
         </tbody>
     </table>
-</body>
-</html>
+    </div>
+    
+{% endblock %}

@@ -1,12 +1,21 @@
 from django.contrib import admin
 
-from .models import Produto, Cliente
+from .models import Produtos, Vendas, ItensVendas
 
-class ProdutoAdmin(admin.ModelAdmin):
-    list_display=('descricao','precoCompra', 'precoVenda','qtdEstoque')
+@admin.register(Produtos)
+class ProdutosAdmin(admin.ModelAdmin):   
+    list_display=('id','nome', 'precoVenda','qtdEstoque')
+    
+@admin.register(Vendas)
+class VendasAdmin(admin.ModelAdmin):    
+    list_display=('id','dataVenda','cpfCliente')
 
-class ClienteAdmin(admin.ModelAdmin):
-    list_display=('nome','sobrenome','email')
+@admin.register(ItensVendas)
+class ItensVendasAdmin(admin.ModelAdmin):    
+    list_display=('id','venda','produto','quantidade')
+    
 
-admin.site.register(Produto, ProdutoAdmin)
-admin.site.register(Cliente, ClienteAdmin)
+# admin.site.register(Produtos, ProdutosAdmin)
+# admin.site.register(Vendas, VendasAdmin)
+# admin.site.register(ItensVendas, ItensVendasAdmin)
+
