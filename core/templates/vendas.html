@@ -1,0 +1,47 @@
+{% extends 'modelo.html' %}
+{% block titulo %}
+<title>Vendas</title>
+{% endblock %}
+{% block conteudo %}
+<div class="container d-flex flex-column align-items-center justify-content-center p-3">
+ 
+    <h2 class="text-light"> </h2>
+</div>
+<div class="container">
+    {% if vendas %}
+    <h3  class="text-light">({{contagem}} vendas) Valor Total: {{valorTotaldeTodas}}</h3>
+    <table class="table table-dark">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Data</th>
+                <th scope="col">CPF cliente</th>
+                <th scope="col">Valor</th>
+                <th scope="col" class="d-flex justify-content-center">Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for venda in vendas %}
+            <tr>
+                <th scope="row">{{venda.id}}</th>
+                <!-- <th scope="row"><a href="#modal{{venda.id}}" data-toggle="modal">{{venda.descricao}}</a></th> -->
+                <th scope="row">
+                    {{venda.dataVenda}}
+                </th>
+                <th scope="row">{{venda.cpfCliente}}</th>
+                <th scope="row">{{venda.total}}</th>
+                <th scope="row" class="d-flex justify-content-center">
+                    <a href="{% url 'detalhar_venda' venda.id %}"><button class="container px-4 py-1" type="submit">Ver</button></a><a href="{% url 'vendadelete' venda.id %}"><button class="container px-4 py-1" type="submit">Excluir</button></a>
+                </th>
+            </tr>
+            
+            {% endfor%}
+        </tbody>
+    </table>
+    {% else %}
+    <h2>Ainda não existem produtos cadastrados... :(</h2>
+    {% endif %}
+
+
+</div>
+{% endblock %}

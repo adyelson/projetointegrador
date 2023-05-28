@@ -1,0 +1,22 @@
+{% extends 'modelo.html' %}
+{% load bootstrap4%}    
+
+{% block conteudo %}
+    <div class="container d-flex flex-column align-items-center justify-content-center">
+        <div class="container 0 bg-light d-flex flex-column justify-content-center align-items-center border border-light rounded w-100 p-4" style="max-width: 350px">
+        <h3>Cadastrar Produto</h3>
+        {% bootstrap_messages %}
+
+        <form action="{% url 'cadastrar_produto' %}" method="post" class="form mt-4" autocomplete="off" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% bootstrap_form form %}
+
+            {% buttons %}
+                    <button class="container btn btn-primary" type="submit" class="btn btn-primary">Cadastrar</button>
+            {% endbuttons %}
+
+
+        </form>
+        </div>
+    </div>
+{% endblock %}

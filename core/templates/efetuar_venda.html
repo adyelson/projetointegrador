@@ -1,0 +1,25 @@
+{% extends 'modelo.html' %}
+{% load bootstrap4%}
+{% block titulo %}
+<title>Efetuar Venda</title>
+{% endblock %}
+
+{% block conteudo %}
+<div class="container d-flex flex-column align-items-center justify-content-center">
+    <div class="container 0 bg-light d-flex flex-column justify-content-center align-items-center border border-light rounded w-100 p-4" style="max-width: 350px;">
+        <h3> Iniciar Venda</h3>
+        {% bootstrap_messages %}
+        <form action="{% url 'efetuar_venda' %}" method="post"
+            class="mt-4 align-items-center justify-content-around w-100" autocomplete="off"
+            enctype="multipart/form-data" style="max-width: 300px;">
+            {% csrf_token %}
+            {% bootstrap_form formVenda %}
+
+            {% buttons %}
+            <button class="container btn btn-primary" type="submit">Confirmar  </button>
+            {% endbuttons %}
+
+        </form>
+    </div>
+</div>
+{% endblock %}

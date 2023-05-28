@@ -1,0 +1,48 @@
+{%load static%}
+{% load bootstrap4%}
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
+
+    {% block titulo %}
+    <title>MODELO</title>
+    {% endblock %}
+
+    {% bootstrap_css %}
+</head>
+
+<body class="bg-dark">
+{% block navbar %}
+<header class="container">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark d-flex justify-content-between">
+        <a class="navbar-brand" href="#">  
+            <img class="imagem-nav img-fluid m-2" alt="Responsive image" src="{% static 'images/logo.jpeg'%}" />
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
+            <div class="navbar-nav d-flex align-items-end" >
+                <a class="nav-item nav-link" href="/">Início  </a>
+                <a class="nav-item nav-link" href="/vendas">Vendas</a>
+                <a class="nav-item nav-link" href="/produtos">Produtos</a>
+                <!-- <a class="nav-item nav-link" href="/painel">Painel admnistrativo</a> -->
+                <a class="nav-item nav-link" href="/accounts/logout">sair</a>
+            </div>
+        </div>
+    </nav>
+</header>
+{% endblock %}
+{% block conteudo %}
+<h1>Página sem conteúdo</h1>
+{% endblock %}
+
+{% bootstrap_javascript jquery='full' %}
+</body>
+
+</html>

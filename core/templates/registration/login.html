@@ -1,0 +1,47 @@
+{% extends "modelo.html" %}
+
+{%load static%}
+{% block navbar %}
+{% endblock %}
+
+{% block conteudo %}
+
+{% if form.errors %}
+<p>Your username and password didn't match. Please try again.</p>
+{% endif %}
+
+{% if next %}
+{% if user.is_authenticated %}
+<p>Your account doesn't have access to this page. To proceed,
+  please login with an account that has access.</p>
+{% else %}
+<p>Please login to see this page.</p>
+{% endif %}
+{% endif %}
+
+<div class="container min-vh-100 d-flex align-items-center">
+  <div class="container 0 bg-light d-flex flex-column justify-content-center align-items-center border border-light rounded w-100 pb-6" style="max-width: 350px">
+
+    <img class="imagem-logo mb-5 mt-5 border border-dark" alt="Responsive image" src="{% static 'images/logo.jpeg'%}" />
+    <form method="post" action="{% url 'login' %}">
+      {% csrf_token %}
+      <table>
+        <tr>
+          <td class="container">{{ form.username.label_tag }}</td>
+          <td>{{ form.username }}</td>
+        </tr>
+        <tr>
+          <td class="container d-flex justify-content-center">{{ form.password.label_tag }}</td>
+          <td>{{ form.password }}</td>
+        </tr>
+      </table>
+      <input class="container mt-3 mb-2" type="submit" value="login" />
+      <input type="hidden" name="next" value="{{ next }}" />
+    </form>
+
+    {# Assumes you setup the password_reset view in your URLconf #}
+    <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
+  </div>
+
+</div>
+{% endblock %}
